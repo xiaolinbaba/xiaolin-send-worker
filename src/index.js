@@ -130,10 +130,21 @@ export default {
       return session.fetch(request);
     }
 
-    const response = await env.ASSETS.fetch(request);
+    const assetRequest = normalizeAssetRequest(request);
+    const response = await env.ASSETS.fetch(assetRequest);
     return withSecurityHeaders(response);
   }
 };
+
+function normalizeAssetRequest(request) {
+  const url = new URL(request.url);
+
+  if (url.pathname === "/") {
+    url.pathname = "/index.html";
+  }
+
+  return new Request(url, request);
+}
 
 function createSessionId() {
   const bytes = new Uint8Array(24);
