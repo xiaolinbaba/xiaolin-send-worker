@@ -82,9 +82,8 @@ fillPolygon(
   white
 );
 fillRect(12, 14, 8, 2, teal);
-fillRect(12, 18, 6, 2, teal);
-fillRect(19, 19, 5, 2, teal);
-fillRect(22, 18, 2, 5, teal);
+fillRect(12, 18, 8, 2, teal);
+fillRect(12, 22, 8, 2, teal);
 
 const xor = Buffer.alloc(size * size * 4);
 for (let y = 0; y < size; y += 1) {
