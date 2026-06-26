@@ -2,12 +2,13 @@ const qrcodeElement = document.getElementById("qrcode");
 const statusElement = document.getElementById("connection-status");
 const refreshButton = document.getElementById("refresh-btn");
 const textContainer = document.getElementById("text-container");
-const textInput = document.getElementById("received-text");
+const receivedTextElement = document.getElementById("received-text");
 const copyButton = document.getElementById("copy-btn");
 const copyMessage = document.getElementById("copy-message");
 const countdownElement = document.getElementById("countdown");
 
 let socket;
+let receivedTextValue = "";
 let countdownInterval;
 let clearTextTimeout;
 let reconnectTimeout;
@@ -21,7 +22,7 @@ refreshButton.addEventListener("click", () => {
 
 copyButton.addEventListener("click", async () => {
     try {
-        await navigator.clipboard.writeText(textInput.value);
+        await navigator.clipboard.writeText(receivedTextValue);
         copyMessage.classList.remove("d-none");
         window.setTimeout(() => copyMessage.classList.add("d-none"), 3000);
     } catch {
@@ -89,12 +90,14 @@ function connectReceiver(sessionId) {
 
 function showReceivedText(text, expiresIn) {
     textContainer.classList.remove("d-none");
-    textInput.value = text;
+    receivedTextValue = text;
+    receivedTextElement.textContent = text;
     startCountdown(expiresIn);
 
     window.clearTimeout(clearTextTimeout);
     clearTextTimeout = window.setTimeout(() => {
-        textInput.value = "";
+        receivedTextValue = "";
+        receivedTextElement.textContent = "";
         textContainer.classList.add("d-none");
         window.clearInterval(countdownInterval);
     }, expiresIn * 1000);

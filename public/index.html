@@ -3,22 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>文本接收</title>
+    <title>安全传输文本内容</title>
+    <meta name="description" content="安全方便传输文本信息。XIAOLIN AI LAB 出品，用二维码和 WebSocket 在手机与电脑之间临时传输文本内容。">
+    <meta name="keywords" content="安全传输文本,临时文本传输,二维码传文本,手机电脑传文本,send.thus.chat,XIAOLIN AI LAB">
+    <meta name="author" content="XIAOLIN AI LAB">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://send.thus.chat/">
+    <link rel="alternate" type="text/markdown" href="https://send.thus.chat/index.md">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="安全传输文本内容">
+    <meta property="og:title" content="安全传输文本内容">
+    <meta property="og:description" content="安全方便传输文本信息。扫码即可在手机与电脑之间临时传输文本内容。">
+    <meta property="og:url" content="https://send.thus.chat/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="安全传输文本内容">
+    <meta name="twitter:description" content="安全方便传输文本信息。扫码即可在手机与电脑之间临时传输文本内容。">
     <link href="/css/style.css" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "安全传输文本内容",
+      "url": "https://send.thus.chat/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "description": "安全方便传输文本信息。使用二维码和 WebSocket 在手机与电脑之间临时传输文本内容。",
+      "creator": {
+        "@type": "Organization",
+        "name": "XIAOLIN AI LAB",
+        "url": "https://www.thus.chat/"
+      }
+    }
+    </script>
+    <script defer src="https://umami.thus.chat/script.js" data-website-id="0b5c7fc2-c24c-4493-bcc7-74f4789e457a"></script>
+    <script defer src="/js/common.js"></script>
     <script defer src="/js/index.js"></script>
 </head>
 <body>
+    <div class="page-background" aria-hidden="true"></div>
     <main class="app-shell">
         <section class="transfer-panel text-center">
             <div class="status-row">
                 <span id="connection-status" class="status-pill status-muted">正在创建会话</span>
             </div>
-            <h1>扫码将文本发送到此设备</h1>
+            <h1>安全传输文本内容</h1>
+            <p class="page-summary">扫码打开发送页，文本实时到达此设备。内容仅临时中转，不落库保存。</p>
             <div id="qrcode" class="qr-frame" aria-live="polite"></div>
             <button id="refresh-btn" class="btn btn-outline-secondary btn-sm mt-3" type="button">刷新二维码</button>
 
             <div id="text-container" class="received-panel d-none">
-                <textarea id="received-text" class="form-control" readonly rows="6"></textarea>
+                <div id="received-text" class="received-text-display" tabindex="0" aria-label="收到的文本预览"></div>
                 <div class="mt-2">
                     <span id="countdown" class="text-muted">60秒后自动清除</span>
                 </div>
@@ -29,5 +66,8 @@
             </div>
         </section>
     </main>
+    <footer class="site-footer">
+        © <span data-current-year></span> XIAOLIN AI <a href="https://www.thus.chat/" target="_blank" rel="noopener noreferrer">LAB</a>. <a href="mailto:ceo@thus.chat">EMAIL</a>
+    </footer>
 </body>
 </html>

@@ -1,0 +1,22 @@
+# 安全传输文本内容
+
+> 安全方便传输文本信息。一个由 XIAOLIN AI LAB 出品的临时文本传输工具。
+
+## Links
+
+- [网站首页](https://send.thus.chat/)
+- [Markdown 版本](https://send.thus.chat/index.md)
+- [完整说明](https://send.thus.chat/llms-full.txt)
+- [项目仓库](https://github.com/xiaolinbaba/xiaolin-send-worker)
+- [XIAOLIN AI LAB](https://www.thus.chat/)
+- [联系邮箱](mailto:ceo@thus.chat)
+
+## About
+
+安全传输文本内容用于在手机与电脑之间临时传输文本。用户在接收设备打开网站后获得二维码，发送设备扫码进入发送页面，输入文本后通过 WebSocket 实时发送回接收设备。
+
+该项目部署在 Cloudflare Workers，使用 Durable Objects 维持同一个会话中的 WebSocket 连接。当前实现不需要登录，不使用数据库，不持久化保存用户发送的文本。
+
+## Safety
+
+文本只在当前会话中实时中转。接收页面显示文本 60 秒后自动清除。二维码链接包含会话 ID，不应公开分享。该工具适合临时传输普通文本，不建议传输密码、私钥、身份证件等高敏感信息。

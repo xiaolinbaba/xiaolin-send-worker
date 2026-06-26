@@ -3,23 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>发送文本</title>
+    <title>安全传输文本内容</title>
+    <meta name="description" content="通过 send.thus.chat 安全方便传输文本信息。扫码后输入文本，即可临时发送到接收设备。">
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="canonical" href="https://send.thus.chat/">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link href="/css/style.css" rel="stylesheet">
+    <script defer src="https://umami.thus.chat/script.js" data-website-id="0b5c7fc2-c24c-4493-bcc7-74f4789e457a"></script>
+    <script defer src="/js/common.js"></script>
     <script defer src="/js/receive.js"></script>
 </head>
 <body>
+    <div class="page-background" aria-hidden="true"></div>
     <main class="app-shell">
-        <section class="transfer-panel">
+        <section class="transfer-panel sender-panel">
             <div class="status-row">
                 <span id="connection-status" class="status-pill status-muted">正在连接</span>
             </div>
             <h1 class="text-center">发送文本</h1>
-            <textarea id="text-input" class="form-control" rows="7" placeholder="请输入要发送的文本"></textarea>
+            <p class="page-summary text-center">文本会实时发送到扫码设备，接收端显示 60 秒后自动清除。</p>
+            <textarea id="text-input" class="form-control" rows="7" maxlength="20000" placeholder="请输入要发送的文本"></textarea>
+            <div class="input-meta">
+                <span>最多 20,000 字符</span>
+                <span id="char-count">0 / 20000</span>
+            </div>
             <button id="send-btn" class="btn btn-primary w-100 mt-3" type="button" disabled>发送</button>
             <div id="send-message" class="alert alert-success mt-3 d-none" role="status">
                 发送成功
             </div>
         </section>
     </main>
+    <footer class="site-footer">
+        © <span data-current-year></span> XIAOLIN AI <a href="https://www.thus.chat/" target="_blank" rel="noopener noreferrer">LAB</a>. <a href="mailto:ceo@thus.chat">EMAIL</a>
+    </footer>
 </body>
 </html>

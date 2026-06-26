@@ -4,17 +4,20 @@ const statusElement = document.getElementById("connection-status");
 const textInput = document.getElementById("text-input");
 const sendButton = document.getElementById("send-btn");
 const sendMessage = document.getElementById("send-message");
+const charCount = document.getElementById("char-count");
 
 let socket;
 let reconnectTimeout;
 let reconnectAttempts = 0;
 
 sendButton.addEventListener("click", sendText);
+textInput.addEventListener("input", updateCharacterCount);
 textInput.addEventListener("keydown", (event) => {
     if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
         sendText();
     }
 });
+updateCharacterCount();
 
 if (!sessionId) {
     showStatus("缺少会话参数", "error");
@@ -44,6 +47,7 @@ function connectSender() {
         if (payload.success) {
             showMessage("发送成功", "success");
             textInput.value = "";
+            updateCharacterCount();
         } else {
             showMessage(`发送失败：${payload.error || "未知错误"}`, "danger");
         }
@@ -102,4 +106,8 @@ function showMessage(text, type) {
     sendMessage.className = `alert alert-${type} mt-3`;
     sendMessage.textContent = text;
     window.setTimeout(() => sendMessage.classList.add("d-none"), 3000);
+}
+
+function updateCharacterCount() {
+    charCount.textContent = `${textInput.value.length} / 20000`;
 }

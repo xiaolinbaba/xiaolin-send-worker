@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "favicon": "node scripts/generate-favicon.js",
     "dev": "wrangler dev --local --port 8787",
     "deploy": "wrangler deploy",
-    "check": "node --check src/index.js && node --check public/js/index.js && node --check public/js/receive.js"
+    "check": "node --check src/index.js && node --check public/js/common.js && node --check public/js/index.js && node --check public/js/receive.js && node --check scripts/generate-favicon.js"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"

@@ -130,7 +130,8 @@ export default {
       return session.fetch(request);
     }
 
-    return env.ASSETS.fetch(request);
+    const response = await env.ASSETS.fetch(request);
+    return withSecurityHeaders(response);
   }
 };
 
@@ -153,5 +154,39 @@ function jsonResponse(body, init = {}) {
       "Cache-Control": "no-store",
       ...init.headers
     }
+  });
+}
+
+function withSecurityHeaders(response) {
+  const headers = new Headers(response.headers);
+  const contentType = headers.get("Content-Type") || "";
+
+  headers.set("X-Content-Type-Options", "nosniff");
+  headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+
+  if (contentType.includes("text/html")) {
+    headers.set(
+      "Content-Security-Policy",
+      [
+        "default-src 'self'",
+        "script-src 'self' 'unsafe-inline' https://umami.thus.chat",
+        "style-src 'self' 'unsafe-inline'",
+        "img-src 'self' data:",
+        "connect-src 'self' https://umami.thus.chat",
+        "font-src 'self'",
+        "object-src 'none'",
+        "base-uri 'self'",
+        "frame-ancestors 'none'",
+        "form-action 'none'",
+        "upgrade-insecure-requests"
+      ].join("; ")
+    );
+  }
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers
   });
 }
