@@ -103,7 +103,7 @@ function showStatus(text, state) {
 }
 
 function showMessage(text, type) {
-    sendMessage.className = `alert alert-${type} mt-3`;
+    sendMessage.className = `alert alert-${type} message-slot mt-3`;
     sendMessage.textContent = text;
     window.setTimeout(() => sendMessage.classList.add("d-none"), 3000);
 }

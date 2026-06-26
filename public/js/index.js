@@ -1,7 +1,6 @@
 const qrcodeElement = document.getElementById("qrcode");
 const statusElement = document.getElementById("connection-status");
 const refreshButton = document.getElementById("refresh-btn");
-const textContainer = document.getElementById("text-container");
 const receivedTextElement = document.getElementById("received-text");
 const copyButton = document.getElementById("copy-btn");
 const copyMessage = document.getElementById("copy-message");
@@ -35,7 +34,7 @@ createSession();
 async function createSession() {
     showStatus("正在创建会话", "muted");
     qrcodeElement.textContent = "正在生成二维码";
-    textContainer.classList.add("d-none");
+    clearReceivedText("等待接收文本");
 
     try {
         const response = await fetch("/api/session", { method: "POST" });
@@ -89,18 +88,26 @@ function connectReceiver(sessionId) {
 }
 
 function showReceivedText(text, expiresIn) {
-    textContainer.classList.remove("d-none");
     receivedTextValue = text;
     receivedTextElement.textContent = text;
+    copyButton.disabled = false;
     startCountdown(expiresIn);
 
     window.clearTimeout(clearTextTimeout);
     clearTextTimeout = window.setTimeout(() => {
-        receivedTextValue = "";
-        receivedTextElement.textContent = "";
-        textContainer.classList.add("d-none");
+        clearReceivedText("等待接收文本");
         window.clearInterval(countdownInterval);
     }, expiresIn * 1000);
+}
+
+function clearReceivedText(statusText) {
+    window.clearTimeout(clearTextTimeout);
+    window.clearInterval(countdownInterval);
+    receivedTextValue = "";
+    receivedTextElement.textContent = "";
+    copyButton.disabled = true;
+    countdownElement.textContent = statusText;
+    copyMessage.classList.add("d-none");
 }
 
 function startCountdown(totalSeconds) {

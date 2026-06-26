@@ -72,6 +72,11 @@ body {
     padding: clamp(18px, 5vh, 42px) 16px 10px;
 }
 
+.sender-shell {
+    place-items: start center;
+    padding-top: clamp(42px, 12vh, 92px);
+}
+
 .transfer-panel {
     width: min(100%, 560px);
     display: grid;
@@ -96,6 +101,16 @@ h1 {
     color: var(--text-muted);
     font-size: 0.98rem;
     line-height: 1.55;
+}
+
+.security-link {
+    color: var(--accent);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.security-link:hover {
+    text-decoration: underline;
 }
 
 .status-row {
@@ -175,12 +190,20 @@ h1 {
 .received-text-display::after {
     content: "";
     position: absolute;
-    inset: 34% 0 0;
-    border-radius: 0 0 12px 12px;
+    top: 50%;
+    left: 50%;
+    width: calc(100% - 56px);
+    height: 58%;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.82));
+    background: rgba(255, 255, 255, 0.64);
     pointer-events: none;
+}
+
+.received-text-display:empty::after {
+    display: none;
 }
 
 #text-input {
@@ -295,6 +318,15 @@ h1 {
     border-color: #f0d46a;
 }
 
+.message-slot {
+    min-height: 46px;
+}
+
+.message-slot.d-none {
+    display: block !important;
+    visibility: hidden;
+}
+
 .site-footer {
     height: 42px;
     display: flex;
@@ -321,6 +353,11 @@ h1 {
     .app-shell {
         height: calc(100dvh - 40px);
         padding: 14px 18px 6px;
+    }
+
+    .sender-shell {
+        place-items: start center;
+        padding-top: 28px;
     }
 
     h1 {
@@ -351,6 +388,11 @@ h1 {
         height: 104px;
     }
 
+    .received-text-display::after {
+        width: calc(100% - 40px);
+        height: 56%;
+    }
+
     #text-input {
         min-height: 152px;
         max-height: 28vh;
@@ -379,6 +421,11 @@ h1 {
 
     .received-text-display {
         height: 84px;
+    }
+
+    .received-text-display::after {
+        width: calc(100% - 34px);
+        height: 54%;
     }
 
     #text-input {
