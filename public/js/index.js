@@ -44,10 +44,10 @@ async function createSession() {
 
         const session = await response.json();
         activeSessionId = session.sessionId;
-        await renderQrCode(session.receiveUrl);
+        renderQrCode(session.qrSvg);
         connectReceiver(activeSessionId);
-    } catch {
-        showStatus("会话创建失败", "error");
+    } catch (error) {
+        showStatus(error.message === "Session request failed" ? "会话创建失败" : "二维码生成失败", "error");
         qrcodeElement.textContent = "请刷新页面后重试";
     }
 }
@@ -115,34 +115,17 @@ function startCountdown(totalSeconds) {
     }, 1000);
 }
 
-function renderQrCode(receiveUrl) {
-    return new Promise((resolve, reject) => {
-        if (!window.QRCode) {
-            reject(new Error("QRCode library is unavailable"));
-            return;
-        }
+function renderQrCode(qrSvg) {
+    if (typeof qrSvg !== "string" || !qrSvg.includes("<svg")) {
+        throw new Error("QR code payload is unavailable");
+    }
 
-        window.QRCode.toDataURL(
-            receiveUrl,
-            {
-                width: 260,
-                margin: 2,
-                errorCorrectionLevel: "M"
-            },
-            (error, dataUrl) => {
-                if (error) {
-                    reject(error);
-                    return;
-                }
-
-                const image = new Image();
-                image.alt = "发送页面二维码";
-                image.src = dataUrl;
-                qrcodeElement.replaceChildren(image);
-                resolve();
-            }
-        );
-    });
+    qrcodeElement.innerHTML = qrSvg;
+    const svg = qrcodeElement.querySelector("svg");
+    if (svg) {
+        svg.setAttribute("role", "img");
+        svg.setAttribute("aria-label", "发送页面二维码");
+    }
 }
 
 function buildWebSocketUrl(sessionId, role) {

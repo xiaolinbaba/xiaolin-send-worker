@@ -1,4 +1,5 @@
 import { DurableObject } from "cloudflare:workers";
+import QRCode from "qrcode";
 
 const MAX_TEXT_LENGTH = 20_000;
 const SESSION_ID_PATTERN = /^[a-zA-Z0-9_-]{22,64}$/;
@@ -104,10 +105,17 @@ export default {
       const sessionId = createSessionId();
       const receiveUrl = new URL("/receive.html", url.origin);
       receiveUrl.searchParams.set("sid", sessionId);
+      const qrSvg = await QRCode.toString(receiveUrl.href, {
+        type: "svg",
+        margin: 2,
+        width: 260,
+        errorCorrectionLevel: "M"
+      });
 
       return jsonResponse({
         sessionId,
-        receiveUrl: receiveUrl.href
+        receiveUrl: receiveUrl.href,
+        qrSvg
       });
     }
 

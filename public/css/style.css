@@ -18,6 +18,30 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+.text-center {
+    text-align: center;
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.d-none {
+    display: none !important;
+}
+
+.mt-2 {
+    margin-top: 8px;
+}
+
+.mt-3 {
+    margin-top: 16px;
+}
+
+.w-100 {
+    width: 100%;
+}
+
 .app-shell {
     min-height: 100vh;
     display: grid;
@@ -84,7 +108,8 @@ h1 {
     background: #fbfdff;
 }
 
-.qr-frame img {
+.qr-frame img,
+.qr-frame svg {
     width: min(100%, 260px);
     height: auto;
 }
@@ -95,20 +120,87 @@ h1 {
 
 #received-text,
 #text-input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
     resize: vertical;
     min-height: 144px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--text-strong);
+    background: #ffffff;
     font-size: 16px;
     line-height: 1.5;
+    font-family: inherit;
+}
+
+#received-text:focus,
+#text-input:focus {
+    border-color: var(--accent);
+    outline: 3px solid rgba(37, 99, 235, 0.16);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 9px 16px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font: inherit;
+    line-height: 1.2;
+    cursor: pointer;
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
 }
 
 .btn-primary {
+    color: #ffffff;
     background: var(--accent);
     border-color: var(--accent);
 }
 
+.btn-outline-secondary {
+    color: var(--text-strong);
+    background: #ffffff;
+    border-color: #9aa7b8;
+}
+
+.btn-sm {
+    min-height: 34px;
+    padding: 6px 12px;
+    font-size: 0.92rem;
+}
+
 .alert {
+    padding: 12px;
+    border: 1px solid transparent;
+    border-radius: 8px;
     margin-bottom: 0;
     transition: opacity 0.2s ease-in-out;
+}
+
+.alert-success {
+    color: var(--success);
+    background: #ebf8ef;
+    border-color: #caefd5;
+}
+
+.alert-danger {
+    color: var(--danger);
+    background: #fff1f0;
+    border-color: #ffd6d2;
+}
+
+.alert-warning {
+    color: #9a6700;
+    background: #fff8c5;
+    border-color: #f0d46a;
 }
 
 @media (max-width: 640px) {
