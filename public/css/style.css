@@ -8,6 +8,7 @@
     --accent: #0f766e;
     --accent-hover: #115e59;
     --accent-soft: #e8f5f3;
+    --preview-mask: rgba(213, 245, 232, 0.72);
     --success: #0f766e;
     --danger: #b42318;
 }
@@ -188,12 +189,8 @@ h1 {
     transform: translate(-50%, -50%);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    background: rgba(255, 255, 255, 0.64);
+    background: var(--preview-mask);
     pointer-events: none;
-}
-
-.received-text-display:empty::after {
-    display: none;
 }
 
 #text-input {
