@@ -8,7 +8,7 @@
     --accent: #0f766e;
     --accent-hover: #115e59;
     --accent-soft: #e8f5f3;
-    --preview-mask: rgba(213, 245, 232, 0.72);
+    --preview-mask: rgba(232, 245, 243, 0.58);
     --success: #0f766e;
     --danger: #b42318;
 }
@@ -183,8 +183,8 @@ h1 {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: calc(100% - 56px);
-    height: 58%;
+    width: calc(100% - 38px);
+    height: 66%;
     border-radius: 10px;
     transform: translate(-50%, -50%);
     backdrop-filter: blur(6px);
@@ -392,8 +392,8 @@ h1 {
     }
 
     .received-text-display::after {
-        width: calc(100% - 40px);
-        height: 56%;
+        width: calc(100% - 28px);
+        height: 64%;
     }
 
     #text-input {
@@ -427,8 +427,8 @@ h1 {
     }
 
     .received-text-display::after {
-        width: calc(100% - 34px);
-        height: 54%;
+        width: calc(100% - 24px);
+        height: 62%;
     }
 
     #text-input {
