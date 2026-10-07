@@ -23,18 +23,6 @@ function fillRect(x, y, width, height, rgba) {
   }
 }
 
-function fillCircle(cx, cy, radius, rgba) {
-  for (let y = cy - radius; y <= cy + radius; y += 1) {
-    for (let x = cx - radius; x <= cx + radius; x += 1) {
-      const dx = x - cx;
-      const dy = y - cy;
-      if (dx * dx + dy * dy <= radius * radius) {
-        setPixel(x, y, rgba);
-      }
-    }
-  }
-}
-
 function pointInPolygon(x, y, points) {
   let inside = false;
   for (let i = 0, j = points.length - 1; i < points.length; j = i, i += 1) {
@@ -64,10 +52,6 @@ const teal = [15, 118, 110, 255];
 const white = [255, 255, 255, 255];
 
 fillRect(0, 0, size, size, teal);
-fillCircle(8, 8, 8, teal);
-fillCircle(23, 8, 8, teal);
-fillCircle(8, 23, 8, teal);
-fillCircle(23, 23, 8, teal);
 fillPolygon(
   [
     [16, 5],

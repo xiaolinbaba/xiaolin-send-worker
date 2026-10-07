@@ -20,6 +20,10 @@
 
 需要注意：这个工具适合临时传输普通文本，不建议发送长期敏感信息、密码、私钥、身份证件等高敏感数据。二维码链接里包含会话 ID，拿到链接的人可以向该接收端发送文本，因此不要把二维码或链接公开分享。
 
+接收端使用独立的随机凭证；会话 ID 是该凭证的 SHA-256 摘要。二维码只包含会话 ID，不能用于建立接收连接。接收凭证只保留在接收页面内存中，通过 WebSocket 子协议传递，不进入 URL、二维码或持久化存储。浏览器恢复后台页面时会按实际时间检查 60 秒清除期限；已复制的剪贴板内容仍由用户自行管理。
+
+服务端限制每个角色在一个会话内最多 64 个连接，每个发送连接每 10 秒最多 30 条消息；超大帧会在 JSON 解析前拒绝。这些限制用于抑制滥用，不代表公网接口已具备全局/IP 级限流。会话当前没有服务端固定有效期。
+
 ## 技术栈
 
 - Cloudflare Workers
@@ -30,7 +34,7 @@
 ## 本地开发
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
@@ -39,14 +43,27 @@ npm run dev
 ## 部署
 
 ```bash
-npm install
+npm ci
 npm run deploy
 ```
 
 Cloudflare Workers Git 集成建议配置：
 
-- Build command: `npm install`
+- Build command: `npm ci`
 - Deploy command: `npm run deploy`
 - Root directory: 仓库根目录
 
 计划使用域名：`send.thus.chat`
+
+## 验证
+
+```bash
+npm run check
+npm test
+npm audit
+npm run deploy -- --dry-run --outdir dist
+```
+
+`npm test` 包含真实 Workers/Durable Objects 运行时测试，以及前端会话竞态、消息确认和过期清除的回归测试。测试使用本地资源，不访问生产 Durable Objects。
+
+鉴权升级发布后，已打开的旧版接收页面需要刷新以获得独立接收凭证。
